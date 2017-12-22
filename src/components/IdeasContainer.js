@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import Idea from './Idea.js'
 import axios from 'axios'
 import update from 'immutability-helper'
+
+import Idea from './Idea.js'
+import IdeaForm from './IdeaForm'
 
 class IdeasContainer extends Component {
 	constructor(props) {
@@ -35,7 +37,7 @@ class IdeasContainer extends Component {
 		})
 	}
 
-	componentDidMount() {
+	componentDidMount = () => {
 		axios.get('http://localhost:3001/api/v1/ideas.json')
 			.then(response => {
 				this.setState({ideas: response.data})
@@ -51,7 +53,11 @@ class IdeasContainer extends Component {
 				  New Idea
 				</button>
 				{this.state.ideas.map((idea) => {
-				  return (<Idea idea={idea} key={idea.id} />)
+				  if(this.state.editingIdeaId === idea.id) {
+				  	return (<IdeaForm idea={idea} key={idea.id} />)
+				  } else {
+					  return (<Idea idea={idea} key={idea.id} />)
+					}
 				})}
 			</div>
 		)
