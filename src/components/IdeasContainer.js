@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
 import Idea from './Idea.js'
 import axios from 'axios'
+import update from 'immutability-helper'
 
 class IdeasContainer extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			ideas: []
+			ideas: [],
+			editingIdeaId: null
 		}
 	}
 
-	addNewIdea() {
+	addNewIdea = () => {
 		axios.post('http://localhost:3001/api/v1/ideas',
 		{
 			idea: {
@@ -19,7 +21,14 @@ class IdeasContainer extends Component {
 			}
 		})
 		.then(response => {
-			console.log(response)
+		  console.log(response)
+		  const ideas = update(this.state.ideas, {
+		    $splice: [[0, 0, response.data]]
+		  })
+		  this.setState({
+		  	ideas: ideas,
+		  	editingIdeaId: response.data.id
+		  })
 		})
 		.catch(error => {
 			console.log(error)
