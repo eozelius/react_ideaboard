@@ -11,11 +11,11 @@ class Idea extends Component {
 
 	render () {
 		return (
-			<div className="tile" key={this.props.idea.id}>
-			  <h4 onClick={this.handleClick}>
+			<div className="tile" key={this.props.idea.id} onClick={this.handleClick} >
+			  <h4>
 			  	{this.props.idea.title}
 			  </h4>
-			  <p onClick={this.handleClick}>
+			  <p>
 			  	{this.props.idea.body}
 			  </p>
 			</div>
