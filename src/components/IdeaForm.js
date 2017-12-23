@@ -11,8 +11,8 @@ class IdeaForm extends Component {
 	}
 
 	handleInput = (e) => {
+		this.props.resetNotification()
 		this.setState({[e.target.name]: e.target.value})
-		console.log(JSON.stringify(this.state))
 	}
 
 	handleBlur = (e) => {
@@ -21,8 +21,6 @@ class IdeaForm extends Component {
 	    body: this.state.body
 	  }
 
-	  console.log(`idea: ${idea}`)
-
 	  axios.put(
 	  	`http://localhost:3001/api/v1/ideas/${this.props.idea.id}`,
 	  	{
@@ -30,14 +28,11 @@ class IdeaForm extends Component {
 	  	})
 	  .then(response => {
 	  	console.log(JSON.stringify(response))
+	  	this.props.updateIdea(response.data)
 	  })
 	  .catch(error => {
 	  	console.log(`error: ${error}`)
 	  })
-
-
-
-
 	}
 
 	render() {
