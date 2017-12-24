@@ -9,13 +9,20 @@ class Idea extends Component {
 		this.props.onClick(this.props.idea.id)
 	}
 
+	handleDelete = () => {
+  	this.props.onDelete(this.props.idea.id)
+	}
+
 	render () {
 		return (
-			<div className="tile" key={this.props.idea.id} onClick={this.handleClick} >
-			  <h4>
+			<div className="tile" key={this.props.idea.id} >
+			  <span className="deleteButton" onClick={this.handleDelete}>
+		      x
+		    </span>
+			  <h4 onClick={this.handleClick}>
 			  	{this.props.idea.title}
 			  </h4>
-			  <p>
+			  <p onClick={this.handleClick}>
 			  	{this.props.idea.body}
 			  </p>
 			</div>
